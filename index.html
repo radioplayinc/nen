@@ -72,18 +72,12 @@
       color:var(--accent); font-size:clamp(1.35rem,3vw,1.85rem); line-height:1.25;
     }
     .plate {
-      position:relative; width:100%; aspect-ratio:16/9; overflow:hidden; background:#ecebe6;
-      margin: 8px 0 40px;
+      position:relative; width:min(100%, 560px); margin: 8px auto 40px;
+      aspect-ratio:16/36; overflow:hidden; background:#ecebe6;
     }
-    .plate img { width:100%; height:100%; object-fit:cover; object-position:center; display:block; }
-    .plate .on {
-      position:absolute; left:0; right:0; bottom:0;
-      padding: clamp(16px,4vw,36px);
-      background:linear-gradient(180deg,transparent,rgba(12,12,11,.72));
-    }
-    .plate .on p {
-      max-width:28ch; font-size:clamp(1.05rem,2.6vw,1.45rem); line-height:1.3;
-      color:#f3f2ee;
+    .plate img {
+      width:100%; height:100%; object-fit:contain; object-position:center; display:block;
+      background:#ecebe6;
     }
     .days { list-style:none; margin-top:22px; display:grid; gap:18px; }
     .days li { display:grid; grid-template-columns: 4.5rem 1fr; gap:12px; align-items:start; }
@@ -95,6 +89,7 @@
     @media (min-width:900px) {
       .copy,.bar,.who,footer.note .wrap { padding-left:8vw; padding-right:8vw; }
       .chap { left:8vw; right:8vw; }
+      .plate { width:min(42vw, 520px); margin-left:8vw; }
     }
   </style>
 </head>
@@ -137,15 +132,13 @@
     </div>
 
     <div class="plate">
-      <img src="mandate.jpg" alt="Nen mandate — CURRENT" />
-      <div class="on">
-        <div class="k">The mandate</div>
-        <p>Lead the practice from discovery to delivery. Pack the launch. Give it a spine. Grow it into a campaign a founder can sell.</p>
-      </div>
+      <img src="mandate.jpg" alt="Nen mandate — 16:36 journey" />
     </div>
 
     <div class="wrap">
       <div class="block">
+        <div class="k">The mandate</div>
+        <p class="mandate">Lead Nen’s brand practice from discovery to delivery — pack the launch, give it a spine, and grow it into a campaign a founder can sell.</p>
         <ul class="days">
           <li><b>Day 30</b><span>Sit in the live brand jobs. Write the practice OS: how discovery becomes identity, and identity becomes a campaign.</span></li>
           <li><b>Day 60</b><span>Run one founder workshop from the front. Own the creative on one new-business pitch.</span></li>
