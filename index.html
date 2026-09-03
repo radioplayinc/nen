@@ -26,20 +26,27 @@
     .progress { position: fixed; top: 0; left: 0; height: 3px; width: 0; background: var(--accent); z-index: 30; }
     .env {
       position: relative; min-height: 100svh; scroll-snap-align: start; scroll-snap-stop: always;
-      overflow: hidden; display: grid; align-content: end;
+      overflow: hidden; display: grid; grid-template-rows: 1fr auto;
+      background: #ecebe6;
+    }
+    .env.ink { background: #0c0c0b; }
+    .frame {
+      display: grid; place-items: center;
+      padding: 72px var(--pad) 8px;
+      min-height: 0;
     }
     .env img.bg {
-      position: absolute; inset: -8%; width: 116%; height: 116%;
-      object-fit: cover; object-position: center;
-      will-change: transform; transform: scale(1.08);
+      position: relative; inset: auto;
+      width: auto; height: auto;
+      max-width: 100%;
+      max-height: calc(100svh - 168px);
+      object-fit: contain; object-position: center;
+      display: block;
     }
-    .veil {
-      position: absolute; inset: 0;
-      background: linear-gradient(180deg, rgba(0,0,0,.08) 20%, rgba(0,0,0,.55) 100%);
-    }
+    .veil { display: none; }
     .copy {
       position: relative; z-index: 2;
-      padding: 0 var(--pad) calc(40px + env(safe-area-inset-bottom));
+      padding: 12px var(--pad) calc(28px + env(safe-area-inset-bottom));
     }
     .k { font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
     h1, h2 {
@@ -49,9 +56,10 @@
     h2 em, h1 em { font-family: Newsreader, Georgia, serif; font-style: italic; color: var(--accent); font-weight: 400; }
     .line { margin-top: 12px; max-width: 22ch; color: rgba(255,255,255,.78); font-size: 1rem; }
     .light { color: #111; }
-    .light .veil { background: linear-gradient(180deg, rgba(236,235,230,.05) 30%, rgba(236,235,230,.55) 100%); }
     .light .copy { color: #111; }
     .light .line { color: #3d3d38; }
+    .ink .copy { color: #f3f2ee; }
+    .ink .line { color: rgba(243,242,238,.78); }
     .chips { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 18px; }
     .chips span {
       border: 1px solid rgba(255,255,255,.35); padding: 6px 10px;
@@ -81,7 +89,6 @@
     }
     @media (prefers-reduced-motion: reduce) {
       html { scroll-snap-type: none; }
-      .env img.bg { transform: none !important; }
     }
   </style>
 </head>
@@ -89,18 +96,16 @@
   <div class="progress" id="bar"></div>
   <div class="bar"><span>Nen × Candidate</span><span>CD, Brand</span></div>
 
-  <section class="env light" data-speed="0.12">
-    <img class="bg" src="cDEjn.jpg" alt="Nen energy capsule" />
-    <div class="veil"></div>
+  <section class="env light">
+    <div class="frame"><img class="bg" src="cDEjn.jpg" width="1374" height="2048" alt="Nen energy capsule" /></div>
     <div class="copy">
       <div class="k">01 · Energy</div>
       <h1>Don’t brief a launch.<br><em>Brief a current.</em></h1>
     </div>
   </section>
 
-  <section class="env" data-speed="0.16">
-    <img class="bg" src="1MgKC.jpg" alt="Nen roller painting form" />
-    <div class="veil"></div>
+  <section class="env ink">
+    <div class="frame"><img class="bg" src="1MgKC.jpg" width="1374" height="2048" alt="Nen roller painting form" /></div>
     <div class="copy">
       <div class="k">02 · Form</div>
       <h2>Ideas take <em>form</em>.</h2>
@@ -108,9 +113,8 @@
     </div>
   </section>
 
-  <section class="env" data-speed="0.1">
-    <img class="bg" src="2eFBY.jpg" alt="Nen studio environment" />
-    <div class="veil"></div>
+  <section class="env ink">
+    <div class="frame"><img class="bg" src="2eFBY.jpg" width="2048" height="1374" alt="Nen studio environment" /></div>
     <div class="copy">
       <div class="k">03 · Practice</div>
       <h2>The room after the paint dries.</h2>
@@ -118,9 +122,8 @@
     </div>
   </section>
 
-  <section class="env light" data-speed="0.14">
-    <img class="bg" src="JsJkn.jpg" alt="Nen brand spine chair" />
-    <div class="veil"></div>
+  <section class="env light">
+    <div class="frame"><img class="bg" src="JsJkn.jpg" width="1374" height="2048" alt="Nen brand spine chair" /></div>
     <div class="copy">
       <div class="k">04 · Spine</div>
       <h2>A system that holds the story.</h2>
@@ -128,9 +131,8 @@
     </div>
   </section>
 
-  <section class="env" data-speed="0.18">
-    <img class="bg" src="KwBCB.jpg" alt="Nen founder rooftop" />
-    <div class="veil"></div>
+  <section class="env ink">
+    <div class="frame"><img class="bg" src="KwBCB.jpg" width="1374" height="2048" alt="Nen founder rooftop" /></div>
     <div class="copy">
       <div class="k">05 · Founder</div>
       <h2>Heat, then language.</h2>
@@ -154,24 +156,11 @@
 
   <script>
     const bar = document.getElementById("bar");
-    const scenes = [...document.querySelectorAll(".env")];
-    const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
-    let ticking = false;
     const go = () => {
       const max = document.documentElement.scrollHeight - innerHeight;
       bar.style.width = ((max > 0 ? scrollY / max : 0) * 100) + "%";
-      if (!reduce) {
-        scenes.forEach((s) => {
-          const img = s.querySelector("img.bg");
-          const r = s.getBoundingClientRect();
-          const p = (innerHeight - r.top) / (innerHeight + r.height);
-          const y = (p - 0.5) * 80 * parseFloat(s.dataset.speed || 0.12);
-          img.style.transform = "scale(1.12) translate3d(0," + y + "px,0)";
-        });
-      }
-      ticking = false;
     };
-    addEventListener("scroll", () => { if (!ticking) { ticking = true; requestAnimationFrame(go); } }, { passive: true });
+    addEventListener("scroll", go, { passive: true });
     go();
   </script>
 </body>
