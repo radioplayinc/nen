@@ -10,67 +10,69 @@
   <style>
     :root { --ink:#111; --paper:#ecebe6; --accent:#ff4d12; --pad:clamp(18px,4.5vw,44px); }
     * { box-sizing:border-box; margin:0; padding:0; }
-    html,body { height:100%; background:#0c0c0b; color:#fff; font-family:Geist,ui-sans-serif,system-ui,sans-serif; }
-    html { scroll-snap-type:y mandatory; }
+    html, body { background:#0c0c0b; color:#f3f2ee; font-family:Geist,ui-sans-serif,system-ui,sans-serif; }
+    body { height: 520vh; }
+    .stage { position:fixed; inset:0; overflow:hidden; background:#0c0c0b; }
+    .stage video, .stage .poster { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+    .veil { position:absolute; inset:0; background:linear-gradient(180deg,rgba(0,0,0,.12) 30%,rgba(0,0,0,.58) 100%); pointer-events:none; }
     .bar { position:fixed; inset:0 0 auto; z-index:20; display:flex; justify-content:space-between; align-items:center; padding:16px var(--pad); font-size:11px; letter-spacing:.2em; text-transform:uppercase; mix-blend-mode:difference; }
     .progress { position:fixed; top:0; left:0; height:3px; width:0; background:var(--accent); z-index:30; }
-    .env { position:relative; min-height:100svh; scroll-snap-align:start; scroll-snap-stop:always; overflow:hidden; display:grid; align-content:end; background:#0c0c0b; }
-    .frame { position:absolute; inset:0; }
-    .env img.bg { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center; display:block; }
-    .veil { position:absolute; inset:0; background:linear-gradient(180deg,rgba(0,0,0,.08) 30%,rgba(0,0,0,.58) 100%); }
-    .copy { position:relative; z-index:2; padding:0 var(--pad) calc(36px + env(safe-area-inset-bottom)); color:#f3f2ee; }
+    .copy { position:fixed; left:0; right:0; bottom:0; z-index:8; padding:0 var(--pad) calc(36px + env(safe-area-inset-bottom)); pointer-events:none; }
+    .chap { position:absolute; left:var(--pad); right:var(--pad); bottom:calc(36px + env(safe-area-inset-bottom)); opacity:0; transform:translate3d(0,18px,0); transition:opacity .35s ease, transform .35s ease; }
+    .chap.on { opacity:1; transform:translate3d(0,0,0); }
     .k { font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--accent); margin-bottom:10px; }
-    h1,h2 { font-weight:500; letter-spacing:-.045em; line-height:.92; font-size:clamp(2.2rem,9vw,5.4rem); max-width:12ch; }
-    h2 em,h1 em { font-family:Newsreader,Georgia,serif; font-style:italic; color:var(--accent); font-weight:400; }
-    .line { margin-top:12px; max-width:22ch; color:rgba(255,255,255,.78); font-size:1rem; }
+    h1,h2 { font-weight:500; letter-spacing:-.045em; line-height:.92; font-size:clamp(2.2rem,8vw,5.2rem); max-width:12ch; }
+    h1 em,h2 em { font-family:Newsreader,Georgia,serif; font-style:italic; color:var(--accent); font-weight:400; }
+    .line { margin-top:12px; max-width:22ch; color:rgba(243,242,238,.78); font-size:1rem; }
     .chips { display:flex; gap:8px; flex-wrap:wrap; margin-top:18px; }
     .chips span { border:1px solid rgba(255,255,255,.35); padding:6px 10px; font-size:11px; letter-spacing:.12em; text-transform:uppercase; }
-    .track { display:flex; gap:10px; overflow-x:auto; padding:18px var(--pad) 36px; scroll-snap-type:x mandatory; scrollbar-width:none; background:#0c0c0b; }
-    .track::-webkit-scrollbar { display:none; }
-    .card { flex:0 0 min(72vw,280px); scroll-snap-align:start; min-height:160px; padding:18px; background:#161615; border:1px solid #2a2a28; }
-    .card b { display:block; color:var(--accent); font-size:11px; letter-spacing:.14em; margin-bottom:10px; }
-    .card h3 { font-size:1.25rem; letter-spacing:-.03em; }
-    footer { scroll-snap-align:start; min-height:40svh; display:grid; align-content:center; padding:var(--pad); background:#0c0c0b; }
-    footer p { font-size:clamp(1.6rem,6vw,3rem); letter-spacing:-.03em; max-width:14ch; line-height:1.05; }
-    @media (min-width:900px) { .copy,.bar,footer,.track { padding-left:8vw; padding-right:8vw; } }
+    footer.note { position:relative; z-index:4; margin-top:500vh; min-height:20vh; padding:var(--pad); background:#0c0c0b; }
+    footer.note p { font-size:clamp(1.6rem,6vw,3rem); letter-spacing:-.03em; max-width:14ch; line-height:1.05; }
+    @media (min-width:900px) { .copy,.bar,footer.note { padding-left:8vw; padding-right:8vw; } .chap { left:8vw; right:8vw; } }
+    @media (prefers-reduced-motion: reduce) { body { height:auto; } .stage video { display:none; } .chap { position:relative; opacity:1; transform:none; bottom:auto; margin:18vh 0; } }
   </style>
 </head>
 <body>
   <div class="progress" id="bar"></div>
   <div class="bar"><span>Nen × Candidate</span><span>CD, Brand</span></div>
-  <section class="env">
-    <div class="frame"><img class="bg" src="cDEjn.jpg" width="1920" height="1080" alt="Nen energy capsule" /><div class="veil"></div></div>
-    <div class="copy"><div class="k">01 · Energy</div><h1>Don’t brief a launch.<br><em>Brief a current.</em></h1></div>
-  </section>
-  <section class="env">
-    <div class="frame"><img class="bg" src="1MgKC.jpg" width="1920" height="1080" alt="Nen roller painting form" /><div class="veil"></div></div>
-    <div class="copy"><div class="k">02 · Form</div><h2>Ideas take <em>form</em>.</h2><p class="line">Flat brief. Then a world you can walk through.</p></div>
-  </section>
-  <section class="env">
-    <div class="frame"><img class="bg" src="2eFBY.jpg" width="1920" height="1080" alt="Nen studio environment" /><div class="veil"></div></div>
-    <div class="copy"><div class="k">03 · Practice</div><h2>The room after the paint dries.</h2><p class="line">Brand as architecture. Quiet. Load-bearing. Orange as the current.</p></div>
-  </section>
-  <section class="env">
-    <div class="frame"><img class="bg" src="JsJkn.jpg" width="1920" height="1080" alt="Nen brand spine chair" /><div class="veil"></div></div>
-    <div class="copy"><div class="k">04 · Spine</div><h2>A system that holds the story.</h2><p class="line">Platform before logo. Storage built into the form.</p></div>
-  </section>
-  <section class="env">
-    <div class="frame"><img class="bg" src="KwBCB.jpg" width="1920" height="1080" alt="Nen founder rooftop" /><div class="veil"></div></div>
-    <div class="copy"><div class="k">05 · Founder</div><h2>Heat, then language.</h2><div class="chips"><span>Spine</span><span>Face</span><span>Current</span><span>Afterlife</span></div></div>
-  </section>
-  <div class="track">
-    <article class="card"><b>01</b><h3>Spine first</h3></article>
-    <article class="card"><b>02</b><h3>Founder rooms</h3></article>
-    <article class="card"><b>03</b><h3>One line, five surfaces</h3></article>
-    <article class="card"><b>04</b><h3>Second act on day one</h3></article>
-    <article class="card"><b>05</b><h3>Sequences, not adjectives</h3></article>
-    <article class="card"><b>06</b><h3>Name the offer. Sell it.</h3></article>
+  <div class="stage">
+    <img class="poster" src="cDEjn.jpg" width="1920" height="1080" alt="" />
+    <video id="journey" muted playsinline preload="auto" poster="cDEjn.jpg">
+      <source src="journey.mp4" type="video/mp4" />
+    </video>
+    <div class="veil"></div>
   </div>
-  <footer><div class="k">The note</div><p>A build, not maintenance. Walk it live.</p></footer>
+  <div class="copy">
+    <div class="chap on" data-from="0" data-to="0.18"><div class="k">01 · Energy</div><h1>Don’t brief a launch.<br><em>Brief a current.</em></h1></div>
+    <div class="chap" data-from="0.18" data-to="0.38"><div class="k">02 · Form</div><h2>Ideas take <em>form</em>.</h2><p class="line">Flat brief. Then a world you can walk through.</p></div>
+    <div class="chap" data-from="0.38" data-to="0.58"><div class="k">03 · Practice</div><h2>The room after the paint dries.</h2><p class="line">Brand as architecture. Quiet. Load-bearing. Orange as the current.</p></div>
+    <div class="chap" data-from="0.58" data-to="0.78"><div class="k">04 · Spine</div><h2>A system that holds the story.</h2><p class="line">Platform before logo. Storage built into the form.</p></div>
+    <div class="chap" data-from="0.78" data-to="1.01"><div class="k">05 · Founder</div><h2>Heat, then language.</h2><div class="chips"><span>Spine</span><span>Face</span><span>Current</span><span>Afterlife</span></div></div>
+  </div>
+  <footer class="note"><div class="k">The note</div><p>A build, not maintenance. Walk it live.</p></footer>
   <script>
-    const bar=document.getElementById("bar");
-    const go=()=>{const max=document.documentElement.scrollHeight-innerHeight;bar.style.width=((max>0?scrollY/max:0)*100)+"%";};
-    addEventListener("scroll",go,{passive:true}); go();
+    const vid = document.getElementById("journey");
+    const bar = document.getElementById("bar");
+    const chaps = [...document.querySelectorAll(".chap")];
+    const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let dur = 0;
+    vid.addEventListener("loadedmetadata", () => { dur = vid.duration || 12.4; });
+    const go = () => {
+      const max = Math.max(1, document.documentElement.scrollHeight - innerHeight);
+      const p = Math.min(1, Math.max(0, scrollY / max));
+      bar.style.width = (p * 100) + "%";
+      if (!reduce && dur) {
+        const t = p * dur;
+        if (Math.abs(vid.currentTime - t) > 0.03) vid.currentTime = t;
+      }
+      chaps.forEach((c) => {
+        const a = parseFloat(c.dataset.from), b = parseFloat(c.dataset.to);
+        c.classList.toggle("on", p >= a && p < b);
+      });
+    };
+    addEventListener("scroll", () => requestAnimationFrame(go), { passive: true });
+    vid.pause();
+    go();
   </script>
 </body>
 </html>
