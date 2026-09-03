@@ -37,7 +37,7 @@
     }
     .who strong { display:block; font-weight:500; letter-spacing:-.03em; font-size:clamp(1rem,2.4vw,1.15rem); text-transform:none; }
     .who em { font-family:Newsreader,Georgia,serif; font-style:italic; color:var(--accent); font-weight:400; }
-    .who p { margin-top:4px; max-width:28ch; font-size:13px; letter-spacing:.01em; color:rgba(243,242,238,.82); }
+    .who p { margin-top:4px; max-width:34ch; font-size:13px; letter-spacing:.01em; color:rgba(243,242,238,.82); }
     .progress { position:fixed; top:0; left:0; height:3px; width:0; background:var(--accent); z-index:30; }
     .copy {
       position:fixed; left:0; right:0; bottom:0; z-index:8;
@@ -57,8 +57,19 @@
     .line { margin-top:12px; max-width:22ch; color:rgba(243,242,238,.78); font-size:1rem; }
     .chips { display:flex; gap:8px; flex-wrap:wrap; margin-top:18px; }
     .chips span { border:1px solid rgba(255,255,255,.35); padding:6px 10px; font-size:11px; letter-spacing:.12em; text-transform:uppercase; }
-    footer.note { position:relative; z-index:4; margin-top:580vh; min-height:18vh; padding:var(--pad); background:#0c0c0b; }
-    footer.note p { font-size:clamp(1.6rem,6vw,3rem); letter-spacing:-.03em; max-width:14ch; line-height:1.05; }
+    footer.note {
+      position:relative; z-index:4; margin-top:580vh; min-height:72vh;
+      padding:calc(var(--pad) + 24px) var(--pad) 80px; background:#0c0c0b;
+    }
+    footer.note .read {
+      max-width:38ch; font-size:clamp(1.05rem,2.4vw,1.35rem); line-height:1.45;
+      color:rgba(243,242,238,.88);
+    }
+    footer.note .read p + p { margin-top:1em; }
+    footer.note .thesis {
+      margin-top:1.4em; font-family:Newsreader,Georgia,serif; font-style:italic;
+      color:var(--accent); font-size:clamp(1.35rem,3vw,1.85rem); line-height:1.25;
+    }
     @media (min-width:900px) {
       .copy,.bar,.who,footer.note { padding-left:8vw; padding-right:8vw; }
       .chap { left:8vw; right:8vw; }
@@ -70,7 +81,7 @@
   <div class="bar"><span>Brian Gibbs</span><span>Creative Director, Brand</span></div>
   <div class="who">
     <strong>Brian Gibbs · <em>Nen</em></strong>
-    <p>I turn packed rooms into brand systems that sell.</p>
+    <p>I have already worked the rooms. I would run the practice.</p>
   </div>
 
   <div class="stage" id="stage">
@@ -89,7 +100,16 @@
     <div class="chap" data-from="0.80" data-to="1.01"><div class="k">05 · Founder</div><h2>Heat, then language.</h2><div class="chips"><span>Spine</span><span>Face</span><span>Current</span></div></div>
   </div>
 
-  <footer class="note"><div class="k">The note</div><p>A build, not maintenance. Walk it live.</p></footer>
+  <footer class="note">
+    <div class="k">The read</div>
+    <div class="read">
+      <p>Since 2022, Nen has partnered with tech startups to launch bold ideas — Amazon, Andreessen Horowitz, Cursor, Mercor, Listen Labs, Tech Week, Cartesia.</p>
+      <p>The hire is not another campaign lead. It is someone to run the brand practice and write the next chapter.</p>
+      <p>That chapter is already named: take identity work and grow it into integrated campaigns across film, social, digital, experiential, and paid.</p>
+      <p>The founder is still the client. The practice has to hold in that room.</p>
+      <p class="thesis">Nen wins if launches become currents, not dates.</p>
+    </div>
+  </footer>
 
   <script>
     const stage = document.getElementById("stage");
