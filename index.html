@@ -58,11 +58,12 @@
     .chips { display:flex; gap:8px; flex-wrap:wrap; margin-top:18px; }
     .chips span { border:1px solid rgba(255,255,255,.35); padding:6px 10px; font-size:11px; letter-spacing:.12em; text-transform:uppercase; }
     footer.note {
-      position:relative; z-index:4; margin-top:580vh; min-height:72vh;
-      padding:calc(var(--pad) + 24px) var(--pad) 80px; background:#0c0c0b;
+      position:relative; z-index:4; margin-top:580vh;
+      padding:calc(var(--pad) + 24px) var(--pad) 96px; background:#0c0c0b;
     }
-    footer.note .read {
-      max-width:38ch; font-size:clamp(1.05rem,2.4vw,1.35rem); line-height:1.45;
+    footer.note .block { max-width:40ch; margin-bottom:56px; }
+    footer.note .read, footer.note .mandate {
+      font-size:clamp(1.05rem,2.4vw,1.35rem); line-height:1.45;
       color:rgba(243,242,238,.88);
     }
     footer.note .read p + p { margin-top:1em; }
@@ -70,6 +71,13 @@
       margin-top:1.4em; font-family:Newsreader,Georgia,serif; font-style:italic;
       color:var(--accent); font-size:clamp(1.35rem,3vw,1.85rem); line-height:1.25;
     }
+    .days { list-style:none; margin-top:22px; display:grid; gap:18px; }
+    .days li { display:grid; grid-template-columns: 4.5rem 1fr; gap:12px; align-items:start; }
+    .days b {
+      font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--accent);
+      padding-top:4px;
+    }
+    .days span { font-size:clamp(1rem,2.2vw,1.2rem); line-height:1.4; color:rgba(243,242,238,.88); }
     @media (min-width:900px) {
       .copy,.bar,.who,footer.note { padding-left:8vw; padding-right:8vw; }
       .chap { left:8vw; right:8vw; }
@@ -101,13 +109,25 @@
   </div>
 
   <footer class="note">
-    <div class="k">The read</div>
-    <div class="read">
-      <p>Since 2022, Nen has partnered with tech startups to launch bold ideas — Amazon, Andreessen Horowitz, Cursor, Mercor, Listen Labs, Tech Week, Cartesia.</p>
-      <p>The hire is not another campaign lead. It is someone to run the brand practice and write the next chapter.</p>
-      <p>That chapter is already named: take identity work and grow it into integrated campaigns across film, social, digital, experiential, and paid.</p>
-      <p>The founder is still the client. The practice has to hold in that room.</p>
-      <p class="thesis">Nen wins if launches become currents, not dates.</p>
+    <div class="block">
+      <div class="k">The read</div>
+      <div class="read">
+        <p>Since 2022, Nen has partnered with tech startups to launch bold ideas — Amazon, Andreessen Horowitz, Cursor, Mercor, Listen Labs, Tech Week, Cartesia.</p>
+        <p>The hire is not another campaign lead. It is someone to run the brand practice and write the next chapter.</p>
+        <p>That chapter is already named: take identity work and grow it into integrated campaigns across film, social, digital, experiential, and paid.</p>
+        <p>The founder is still the client. The practice has to hold in that room.</p>
+        <p class="thesis">Nen wins if launches become currents, not dates.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="k">The mandate</div>
+      <p class="mandate">Lead Nen’s brand practice from discovery to delivery — pack the launch, give it a spine, and grow it into a campaign a founder can sell.</p>
+      <ul class="days">
+        <li><b>Day 30</b><span>Sit in the live brand jobs. Write the practice OS: how discovery becomes identity, and identity becomes a campaign.</span></li>
+        <li><b>Day 60</b><span>Run one founder workshop from the front. Own the creative on one new-business pitch.</span></li>
+        <li><b>Day 90</b><span>Turn one closed project into a multi-channel platform and a team ritual the studio can reuse.</span></li>
+      </ul>
     </div>
   </footer>
 
