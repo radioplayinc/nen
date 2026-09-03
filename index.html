@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0c0c0b" />
+  <title>Nen — Launch Current</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Newsreader:ital,opsz,wght@1,6..72,400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink: #111;
+      --paper: #ecebe6;
+      --accent: #ff4d12;
+      --pad: clamp(18px, 4.5vw, 44px);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; background: #0c0c0b; color: #fff; font-family: Geist, ui-sans-serif, system-ui, sans-serif; }
+    html { scroll-snap-type: y mandatory; }
+    .bar {
+      position: fixed; inset: 0 0 auto; z-index: 20;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 16px var(--pad); font-size: 11px; letter-spacing: .2em; text-transform: uppercase;
+      mix-blend-mode: difference;
+    }
+    .progress { position: fixed; top: 0; left: 0; height: 3px; width: 0; background: var(--accent); z-index: 30; }
+    .env {
+      position: relative; min-height: 100svh; scroll-snap-align: start; scroll-snap-stop: always;
+      overflow: hidden; display: grid; align-content: end;
+    }
+    .env img.bg {
+      position: absolute; inset: -8%; width: 116%; height: 116%;
+      object-fit: cover; object-position: center;
+      will-change: transform; transform: scale(1.08);
+    }
+    .veil {
+      position: absolute; inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,.08) 20%, rgba(0,0,0,.55) 100%);
+    }
+    .copy {
+      position: relative; z-index: 2;
+      padding: 0 var(--pad) calc(40px + env(safe-area-inset-bottom));
+    }
+    .k { font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+    h1, h2 {
+      font-weight: 500; letter-spacing: -.045em; line-height: .92;
+      font-size: clamp(2.2rem, 9vw, 5.4rem); max-width: 12ch;
+    }
+    h2 em, h1 em { font-family: Newsreader, Georgia, serif; font-style: italic; color: var(--accent); font-weight: 400; }
+    .line { margin-top: 12px; max-width: 22ch; color: rgba(255,255,255,.78); font-size: 1rem; }
+    .light { color: #111; }
+    .light .veil { background: linear-gradient(180deg, rgba(236,235,230,.05) 30%, rgba(236,235,230,.55) 100%); }
+    .light .copy { color: #111; }
+    .light .line { color: #3d3d38; }
+    .chips { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 18px; }
+    .chips span {
+      border: 1px solid rgba(255,255,255,.35); padding: 6px 10px;
+      font-size: 11px; letter-spacing: .12em; text-transform: uppercase;
+    }
+    .light .chips span { border-color: #111; }
+    .track {
+      display: flex; gap: 10px; overflow-x: auto; padding: 18px var(--pad) 36px;
+      scroll-snap-type: x mandatory; scrollbar-width: none;
+      background: #0c0c0b;
+    }
+    .track::-webkit-scrollbar { display: none; }
+    .card {
+      flex: 0 0 min(72vw, 280px); scroll-snap-align: start;
+      min-height: 160px; padding: 18px; background: #161615; border: 1px solid #2a2a28;
+    }
+    .card b { display: block; color: var(--accent); font-size: 11px; letter-spacing: .14em; margin-bottom: 10px; }
+    .card h3 { font-size: 1.25rem; letter-spacing: -.03em; }
+    footer {
+      scroll-snap-align: start; min-height: 40svh;
+      display: grid; align-content: center; padding: var(--pad);
+      background: #0c0c0b;
+    }
+    footer p { font-size: clamp(1.6rem, 6vw, 3rem); letter-spacing: -.03em; max-width: 14ch; line-height: 1.05; }
+    @media (min-width: 900px) {
+      .copy, .bar, footer, .track { padding-left: 8vw; padding-right: 8vw; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-snap-type: none; }
+      .env img.bg { transform: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="progress" id="bar"></div>
+  <div class="bar"><span>Nen × Candidate</span><span>CD, Brand</span></div>
+
+  <section class="env light" data-speed="0.12">
+    <img class="bg" src="img/cDEjn.jpg" alt="Nen energy capsule" />
+    <div class="veil"></div>
+    <div class="copy">
+      <div class="k">01 · Energy</div>
+      <h1>Don’t brief a launch.<br><em>Brief a current.</em></h1>
+    </div>
+  </section>
+
+  <section class="env" data-speed="0.16">
+    <img class="bg" src="img/1MgKC.jpg" alt="Nen roller painting form" />
+    <div class="veil"></div>
+    <div class="copy">
+      <div class="k">02 · Form</div>
+      <h2>Ideas take <em>form</em>.</h2>
+      <p class="line">Flat brief. Then a world you can walk through.</p>
+    </div>
+  </section>
+
+  <section class="env" data-speed="0.1">
+    <img class="bg" src="img/2eFBY.jpg" alt="Nen studio environment" />
+    <div class="veil"></div>
+    <div class="copy">
+      <div class="k">03 · Practice</div>
+      <h2>The room after the paint dries.</h2>
+      <p class="line">Brand as architecture. Quiet. Load-bearing. Orange as the current.</p>
+    </div>
+  </section>
+
+  <section class="env light" data-speed="0.14">
+    <img class="bg" src="img/JsJkn.jpg" alt="Nen brand spine chair" />
+    <div class="veil"></div>
+    <div class="copy">
+      <div class="k">04 · Spine</div>
+      <h2>A system that holds the story.</h2>
+      <p class="line">Platform before logo. Storage built into the form.</p>
+    </div>
+  </section>
+
+  <section class="env" data-speed="0.18">
+    <img class="bg" src="img/KwBCB.jpg" alt="Nen founder rooftop" />
+    <div class="veil"></div>
+    <div class="copy">
+      <div class="k">05 · Founder</div>
+      <h2>Heat, then language.</h2>
+      <div class="chips"><span>Spine</span><span>Face</span><span>Current</span><span>Afterlife</span></div>
+    </div>
+  </section>
+
+  <div class="track">
+    <article class="card"><b>01</b><h3>Spine first</h3></article>
+    <article class="card"><b>02</b><h3>Founder rooms</h3></article>
+    <article class="card"><b>03</b><h3>One line, five surfaces</h3></article>
+    <article class="card"><b>04</b><h3>Second act on day one</h3></article>
+    <article class="card"><b>05</b><h3>Sequences, not adjectives</h3></article>
+    <article class="card"><b>06</b><h3>Name the offer. Sell it.</h3></article>
+  </div>
+
+  <footer>
+    <div class="k">The note</div>
+    <p>A build, not maintenance. Walk it live.</p>
+  </footer>
+
+  <script>
+    const bar = document.getElementById("bar");
+    const scenes = [...document.querySelectorAll(".env")];
+    const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let ticking = false;
+    const go = () => {
+      const max = document.documentElement.scrollHeight - innerHeight;
+      bar.style.width = ((max > 0 ? scrollY / max : 0) * 100) + "%";
+      if (!reduce) {
+        scenes.forEach((s) => {
+          const img = s.querySelector("img.bg");
+          const r = s.getBoundingClientRect();
+          const p = (innerHeight - r.top) / (innerHeight + r.height);
+          const y = (p - 0.5) * 80 * parseFloat(s.dataset.speed || 0.12);
+          img.style.transform = "scale(1.12) translate3d(0," + y + "px,0)";
+        });
+      }
+      ticking = false;
+    };
+    addEventListener("scroll", () => { if (!ticking) { ticking = true; requestAnimationFrame(go); } }, { passive: true });
+    go();
+  </script>
+</body>
+</html>
